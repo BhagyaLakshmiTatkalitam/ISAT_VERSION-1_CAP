@@ -3,27 +3,34 @@ POST http://localhost:4004/odata/v4/isat/Customers
 Content-Type: application/json
  
 {
-    "custid":"CUST_002",
-    "name":"James Miller",
-    "location":"Bangalore",
-    "description":"SAP customer"
+    "custid":"CUST_78",
+    "name":"sam",
+    "location":"Arabia",
+    "description":"SAP client"
 }
  
 ###
 GET http://localhost:4004/odata/v4/isat/Customers?$filter=autoid eq 1000001 and name eq 'James Miller'
  
 ###
+GET http://localhost:4004/odata/v4/isat/Customers?$search=1000000
+
+
+
+
+
+###
 GET http://localhost:4004/odata/v4/isat/Customers
 ###
-PUT http://localhost:4004/odata/v4/sat-srv/Customers(1)
+PUT http://localhost:4004/odata/v4/isat/Customers(1000000)
 Content-Type: application/json
  
 {
-    "autoid":1,
-    "custid":"CUST_001",
-    "name":"James Miller",
+    "autoid":1000000,
+    "custid":"CUST_003",
+    "name":"Manasa James",
     "location":"Eurpe",
-    "description":"SAP customer"
+    "description":"SAP Partner"
 }
  
 ###
@@ -42,7 +49,11 @@ GET http://localhost:4004/odata/v4/isat/Projects?$filter=autoid eq 1000001 and n
 
 ### 
 GET http://localhost:4004/odata/v4/isat/Projects
- 
+Content-Type: application/json 
+
+### 
+GET http://localhost:4004/odata/v4/isat/Projects?search=false
+Content-Type: application/json 
 
 
 ### 
@@ -50,8 +61,8 @@ POST http://localhost:4004/odata/v4/isat/Projects
 Content-Type: application/json
  
 {
-    "projid":"PROJECT-2",
-    "name":"ISAT-1",
+    "projid":"PROJECT-10",
+    "name":"ISAT-4",
     "description":"creating project",
     "status":true
 }
@@ -83,6 +94,9 @@ GET http://localhost:4004/odata/v4/isat/Users?$filter=autoid eq 1000001 and name
 
 ###
 GET http://localhost:4004/odata/v4/isat/Users
+
+###
+GET http://localhost:4004/odata/v4/isat/Users?$search=Bhagya@gmail.com
  
  
  
@@ -106,11 +120,11 @@ Content-Type: application/json
  
 {
       "autoid": 1000000,
-      "userid": "manas-001",
-      "name": "Manasa",
+      "userid": "manas-002",
+      "name": "Bhagya",
       "role": "SAP Devop",
-      "active": true,
-      "emailid": "manasa@gmail.com",
+      "active": false,
+      "emailid": "Bhagya@gmail.com",
       "custid": "CUST_002"
     }
  
@@ -121,44 +135,46 @@ DELETE http://localhost:4004/odata/v4/isat/Users(1000000)
  
  
 
+            //comments entity
 
-                                   //Component entity
+###
+GET http://localhost:4004/odata/v4/isat/Comments
 
 ###
-GET http://localhost:4004/odata/v4/isat/Component?$filter=autoid eq 1000001 and name eq 'users module'
+GET http://localhost:4004/odata/v4/isat/Comments?$filter=autoid eq 1000001
+
+
 ###
-GET http://localhost:4004/odata/v4/isat/Component
- 
-###
-POST http://localhost:4004/odata/v4/isat/Component
+POST http://localhost:4004/odata/v4/isat/Comments
 Content-Type: application/json
  
 {
-    "compid":"comp_003",
-    "name":"users module",
-    "description":"deleting module",
-    "type":"bhbj"
+    "comment":"delete comment",
+    "refid":"001",
+    "type":"CAPDevelop",
+    "created_by":"Manasa",
+    "created_datetime":"2024-09-17T09:00:00"
 }
- 
+
 ###
-PUT http://localhost:4004/odata/v4/isat/Component(1000005)
+PUT  http://localhost:4004/odata/v4/isat/Comments(1000000)
 Content-Type: application/json
  
 {
-    "compid":"comp_001",
-    "name":"component module",
-    "description":"creating module",
-    "type":"float"
+    "comment":"change comment",
+    "refid":"001",
+    "type":"CAPDevelop",
+    "created_by":"Manasa",
+    "created_datetime":"2024-09-17T09:00:00"
 }
- 
-###
-DELETE http://localhost:4004/odata/v4/isat/Component(1000000)
-
 
                                //TaskList Entity
 
 ###
 GET http://localhost:4004/odata/v4/isat/Tasklist
+
+###
+GET http://localhost:4004/odata/v4/isat/Tasklist?$search=database Task
 
 ###
 POST http://localhost:4004/odata/v4/isat/Tasklist
@@ -171,7 +187,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:4004/odata/v4/isat/Tasklist(1000005)
+PUT http://localhost:4004/odata/v4/isat/Tasklist(1000000)
 Content-Type: application/json
 
 {
@@ -181,24 +197,25 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:4004/odata/v4/isat/Tasklist(1000005)
+DELETE http://localhost:4004/odata/v4/isat/Tasklist(1000000)
 
 
                                // Teams Entity
 
 ###
 GET http://localhost:4004/odata/v4/isat/Teams?$filter=autoid eq 1000000 and name eq 'Dev Team'
+
 ###
-GET http://localhost:4004/odata/v4/isat/Teams
+GET http://localhost:4004/odata/v4/isat/Teams?$search=1
 
 ###
 POST http://localhost:4004/odata/v4/isat/Teams
 Content-Type: application/json
 
 {
-        "teamid"      : "Team_1",
-        "name"        : "dev",
-        "description" : "core application"
+        "teamid"      : "Team_2",
+        "name"        : "test",
+        "description" : "test application"
 
 }
 
@@ -215,24 +232,45 @@ Content-Type: application/json
 ###
 DELETE http://localhost:4004/odata/v4/isat/Teams(1)
 
+                                    //customers_projects
 
+###
+GET http://localhost:4004/odata/v4/isat/Customers_Projects?$filter=autoid eq 1000000 
+###
+GET http://localhost:4004/odata/v4/isat/Customers_Projects
 
 ###
 POST http://localhost:4004/odata/v4/isat/Customers_Projects
 Content-Type: application/json
 
 {
-  "customer_id":  1000000 ,
-  "proj_id":  1000000 
+  "customer_id":  {"autoid":1000003} ,
+  "proj_id":  {"autoid":1000002}
 }
+
+###
+PUT  http://localhost:4004/odata/v4/isat/Customers_Projects(1000002)
+Content-Type: application/json
+ 
+{
+    "autoid":    "1000002",
+  "customer_id":  {"autoid":1000004} ,
+  "proj_id":  {"autoid":1000002}
+}
+
+###
+DELETE http://localhost:4004/odata/v4/isat/Customers_Projects(1000000)
 
 
                               //Tasks Entity
 ###
-GET http://localhost:4004/odata/v4/isat/Tasks?$filter=autoid eq 1000000 and task_name eq 'Dashboard Screen'
+GET http://localhost:4004/odata/v4/isat/Tasks?$filter=autoid eq 1000000 and task_name eq 'Home Screen'
 
 ###
 GET http://localhost:4004/odata/v4/isat/Tasks
+
+###
+GET  http://localhost:4004/odata/v4/isat/Tasks?$search=2024-09-12
 
 ###
 POST http://localhost:4004/odata/v4/isat/Tasks
@@ -245,36 +283,38 @@ Content-Type: application/json
     "enddate" : "2024-09-13",
     "status" : "open",
     "type" : "critical",
-    "reftaskid" : "task_001",
+    "parent_task_id" : 1,
     "assignedto" : "UI team",
-    "createdby" : "Team lead",
-    "updateddatetime" : "2024-09-12T09:00:00",
-    "createddatetime" : "2024-09-12T09:00:00",
-    "updatedby" : "UI lead"
+    "created_by" : "Team lead",
+    "updated_datetime" : "2024-09-12T09:00:00",
+    "created_datetime" : "2024-09-12T09:00:00",
+    "updated_by" : "UI lead",
+    "tasklist_id":{"autoid":1000000}
 
 }
 
 ###
-PUT http://localhost:4004/odata/v4/isat/Tasks
+PUT http://localhost:4004/odata/v4/isat/Tasks(1000000)
 Content-Type: application/json
 
 {
     "task_name" : "Home Screen",
     "duration" : "01:00:00",
-    "startdate" : "2024-09-12",
-    "enddate" : "2024-09-13",
+    "startdate" : "2024-10-12",
+    "enddate" : "2024-10-13",
     "status" : "open",
     "type" : "critical",
-    "reftaskid" : "task_001",
+    "parent_task_id" : 1,
     "assignedto" : "UI team",
-    "createdby" : "Team lead",
-    "updateddatetime" : "2024-09-12T09:00:00",
-    "createddatetime" : "2024-09-12T09:00:00",
-    "updatedby" : "UI lead"
-}
+    "created_by" : "Team lead",
+    "updated_datetime" : "2024-10-12T09:00:00",
+    "created_datetime" : "2024-10-12T09:00:00",
+    "updated_by" : "UI lead",
+    "tasklist_id":{"autoid":1000000}
 
+}
 ###
-DELETE  http://localhost:4004/odata/v4/isat/Tasks
+DELETE  http://localhost:4004/odata/v4/isat/Tasks(1000000)
 
 
                                    //Phases Entity
@@ -283,14 +323,14 @@ DELETE  http://localhost:4004/odata/v4/isat/Tasks
 ###
 GET http://localhost:4004/odata/v4/isat/Phases?$filter=autoid eq 1000000 and phase_name eq 'send request'
 ###
-GET  http://localhost:4004/odata/v4/isat/Phases
+GET  http://localhost:4004/odata/v4/isat/Phases?$search=end
 
 ###
 POST http://localhost:4004/odata/v4/isat/Phases
 Content-Type: application/json
 
 {
-     "phase_name" : "send request"
+     "phase_name" : "receive request"
 }
 
 ###
@@ -323,7 +363,7 @@ Content-Type: application/json
 }
 
 ###
-PUT http://localhost:4004/odata/v4/isat/Timelines(1)
+PUT http://localhost:4004/odata/v4/isat/Timelines(1000000)
 Content-Type: application/json
 
 {
@@ -334,4 +374,460 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:4004/odata/v4/isat/Timelines(1)
+DELETE http://localhost:4004/odata/v4/isat/Timelines(1000000)
+
+
+//DDType.................................
+
+###
+POST http://localhost:4004/odata/v4/isat/DDType
+Content-Type: application/json
+
+{
+    "name":"hello",
+    "description":"describe"
+}
+
+###
+GET http://localhost:4004/odata/v4/isat/DDType
+
+###
+GET http://localhost:4004/odata/v4/isat/DDType?$search=evryone
+
+###
+GET http://localhost:4004/odata/v4/isat/DDType?$filter=autoid eq 1000000 and name eq 'evryone'
+
+###
+PUT http://localhost:4004/odata/v4/isat/DDType(1000000)
+Content-Type: application/json
+
+{
+    "name":"evryone",
+    "description":"describe"
+}
+
+###
+DELETE http://localhost:4004/odata/v4/isat/DDType(1000000)
+
+### CREATE InterfaceDetails
+POST http://localhost:4004/odata/v4/isat/InterfaceDetails
+Content-Type: application/json
+
+{
+    "name": "Interface2",
+    "description": "Description",
+    "module": "Finance",
+    "package": "1002",
+    "senderssystem": "SAP",
+    "receiversystem": "Legacy",
+    "process": "Receive",
+    "sourceadapter": "JDBC",
+    "targetadapter": "REST",
+    "techpoc": "John Doe",
+    "functionalpoc": "Jane hork",
+    "businesspoc": "Alice Brick",
+    "doctype": "pdf",
+    "frequency": "Daily",
+    "ccenabled": false
+}
+
+### READ InterfaceDetails by autoid
+GET http://localhost:4004/odata/v4/isat/InterfaceDetails?$search=true
+
+### READ InterfaceDetails by name
+GET http://localhost:4004/odata/v4/isat/InterfaceDetails?name=Interface1
+
+### UPDATE InterfaceDetails
+PUT http://localhost:4004/odata/v4/isat/InterfaceDetails(1000000)
+Content-Type: application/json
+
+{
+    "autoid": 1000000,
+    "name": "Updated Interface",
+    "description": "Updated Description",
+    "comptype_id": {"autoid":1000000},
+    "module": "Logistics",
+    "package": 1002,
+    "senderssystem": "SAP",
+    "receiversystem": "AWS",
+    "process": "Shipping",
+    "sourceadapter": "FTP",
+    "targetadapter": "HTTP",
+    "techpoc": "Updated John Doe",
+    "functionalpoc": "Updated Jane Smith",
+    "businesspoc": "Updated Alice Brown",
+    "doctype": "JSON",
+    "frequency": "Weekly",
+    "ccenabled": false
+}
+
+### DELETE InterfaceDetails
+DELETE http://localhost:4004/odata/v4/isat/InterfaceDetails(1000000)
+
+
+
+### CREATE Teams_Users
+POST http://localhost:4004/odata/v4/isat/Teams_Users
+Content-Type: application/json
+
+{
+    "team_id": {"autoid":1000000},
+    "user_id": {"autoid":1000000},
+    "active": true
+}
+
+### READ Teams_Users by autoid
+GET http://localhost:4004/odata/v4/isat/Teams_Users?$filter=autoid eq 1000001
+
+### READ Teams_Users by team_id
+GET http://localhost:4004/odata/v4/isat/Teams_Users?team_id=1000000
+
+### READ Teams_Users by user_id
+GET http://localhost:4004/odata/v4/isat/Teams_Users?user_id=1000000
+
+### UPDATE Teams_Users
+PUT http://localhost:4004/odata/v4/isat/Teams_Users(1000000)
+Content-Type: application/json
+
+{
+    
+    "team_id": {"autoid":1000000},
+    "user_id": {"autoid":1000000},
+    "active": false
+}
+
+### DELETE Teams_Users
+DELETE http://localhost:4004/odata/v4/isat/Teams_Users(1000000)
+
+### CREATE Component_TaskList
+POST http://localhost:4004/odata/v4/isat/Component_TaskList
+Content-Type: application/json
+
+{
+    "tasklist_id": {"autoid": 1000000},
+    "stage_id": {"autoid": 1000000}
+}
+
+### READ Component_TaskList by autoid
+GET http://localhost:4004/odata/v4/isat/Component_TaskList?autoid=1000000
+
+### UPDATE Component_TaskList
+PUT  http://localhost:4004/odata/v4/isat/Component_TaskList(1000000)
+Content-Type: application/json
+
+{
+    "tasklist_id": {"autoid": 1000000},
+    "stage_id": {"autoid": 1000000}
+}
+
+### DELETE Component_TaskList
+DELETE http://localhost:4004/odata/v4/isat/Component_TaskList(1000000)
+
+###
+GET http://localhost:4004/odata/v4/isat/Stages?$search=des
+###
+POST http://localhost:4004/odata/v4/isat/Stages
+Content-Type: application/json
+
+{
+    "name":"Jo@n",
+    "description":"details2"
+}
+
+### CREATE TimeCapture
+POST http://localhost:4004/odata/v4/isat/TimeCapture
+Content-Type: application/json
+
+{
+    "start_time": "08:00:00",
+    "end_time": "12:00:00",
+    "task_id": {"autoid": 1000000}  
+}
+
+### READ TimeCapture by autoid
+GET http://localhost:4004/odata/v4/isat/TimeCapture?autoid=1000000
+
+
+### UPDATE TimeCapture
+PUT http://localhost:4004/odata/v4/isat/TimeCapture(1000000)
+Content-Type: application/json
+
+{
+    "start_time": "09:00:00",
+    "end_time": "13:00:00",
+    "task_id": {"autoid": 1000001} 
+}
+
+### DELETE TimeCapture
+DELETE http://localhost:4004/odata/v4/isat/TimeCapture(1000000)
+
+
+### CREATE Phase
+POST http://localhost:4004/odata/v4/isat/Phases
+Content-Type: application/json
+
+{
+    "phase_name": "Design Phase"
+}
+
+### READ Phases (All)
+GET http://localhost:4004/odata/v4/isat/Phases
+Content-Type: application/json
+
+### READ Specific Phase by autoid
+GET http://localhost:4004/odata/v4/isat/Phases(autoid=1000000)
+Content-Type: application/json
+
+### UPDATE Phase
+PUT http://localhost:4004/odata/v4/isat/Phases(autoid=1000000)
+Content-Type: application/json
+
+{
+    "phase_name": "Development Phase"
+}
+
+### DELETE Phase
+DELETE http://localhost:4004/odata/v4/isat/Phases(autoid=1000000)
+
+
+            //Roles Entity
+
+###
+GET http://localhost:4004/odata/v4/isat/Roles?$search=i5
+
+###
+GET http://localhost:4004/odata/v4/isat/Roles?$filter=autoid eq 1000000 and name eq 'CPI developer'
+
+###
+POST http://localhost:4004/odata/v4/isat/Roles
+Content-Type: application/json
+
+{
+    "roleid"       :  "role_03",
+    "name"         :  "UI5 developer",
+    "description"  : "Design"
+}
+
+###
+PUT  http://localhost:4004/odata/v4/isat/Roles(1000000)
+Content-Type: application/json
+
+{
+    "roleid": "role_01",
+    "name"  :  "CPI developer",
+    "description"  : "Implementation"
+}
+
+###
+DELETE  http://localhost:4004/odata/v4/isat/Roles(1000000)
+
+
+### CREATE an Issue
+POST http://localhost:4004/odata/v4/isat/Issues
+Content-Type: application/json
+
+{
+  "issueDesc": "Test issue",
+  "detailedDesc": "Details of the issue",
+  "type": "Error",
+  "status": "close",
+  "createdBy": "John sane",
+  "updatedBy": "John Doe",
+  "createdTime": "2024-08-10",
+  "updatedTime": "2024-08-19"
+}
+
+### READ all Issues
+GET http://localhost:4004/odata/v4/isat/Issues?$search=ug
+
+### READ specific Issue by autoid
+GET http://localhost:4004/odata/v4/isat/Issues?$filter=autoid eq 1000000 and issueDesc eq 'Updated issue description'
+### READ specific Issue by phase_name
+GET http://localhost:4004/odata/v4/isat/Issues(Updated issue description)
+
+### UPDATE an Issue
+PUT  http://localhost:4004/odata/v4/isat/Issues(1000000)
+Content-Type: application/json
+
+{
+  "autoid": 1000001,
+  "issueDesc": "Updated issue description",
+  "detailedDesc": "Updated detailed description",
+  "type": "Feature",
+  "status": "Closed",
+  "updatedBy": "Jane Doe",
+  "createdBy": "John Doe",
+  "updatedTime": "2024-09-19",
+  "createdTime": "2024-09-10"
+}
+
+### DELETE an Issue by autoid
+DELETE http://localhost:4004/odata/v4/isat/Issues(1000000)
+
+
+### CREATE a TaskNote
+POST http://localhost:4004/odata/v4/isat/TaskNotes
+Content-Type: application/json
+
+{
+  "task_id": {"autoid":1000000},
+  "notes": "This is a note ",
+  "name": "John Doe"
+}
+
+### READ all TaskNotes
+GET http://localhost:4004/odata/v4/isat/TaskNotes
+
+### READ specific TaskNote by autoid
+GET http://localhost:4004/odata/v4/isat/TaskNotes(1000000)
+
+### READ specific TaskNote by name
+GET http://localhost:4004/odata/v4/isat/TaskNotes?$filter=autoid eq 1000000 and name eq 'John Doe'
+
+### UPDATE a TaskNote
+PUT  http://localhost:4004/odata/v4/isat/TaskNotes(1000000)
+Content-Type: application/json
+
+{
+  "autoid": 1000000,
+  "task_id": {"autoid":1000000},
+  "notes": "Updated notes for task 1",
+  "name": "Jane Doe"
+}
+
+### DELETE a TaskNote by autoid
+DELETE http://localhost:4004/odata/v4/isat/TaskNotes(1000000)
+
+
+
+### CREATE a TaskNote
+POST http://localhost:4004/odata/v4/isat/TaskAttachments
+Content-Type: application/json
+
+{
+  "task_id": {"autoid":1000000},
+  "attachmenturl": "https://example.com/attachment/file1.pdf",
+  "name": "Design Document",
+  "type": "PDF"
+}
+
+### READ all TaskNotes
+GET http://localhost:4004/odata/v4/isat/TaskAttachments
+
+
+### READ specific TaskNote by name
+GET http://localhost:4004/odata/v4/isat/TaskAttachments?$filter=autoid eq 1000000 and name eq 'Design Document'
+
+### UPDATE a TaskNote
+PUT  http://localhost:4004/odata/v4/isat/TaskAttachments(1000000)
+Content-Type: application/json
+
+{
+    "autoid":1000000,
+  "task_id": {"autoid":1000000},
+  "attachmenturl": "https://example.com/attachment/file1.pdf",
+  "name": "Developing Document",
+  "type": "PDF"
+}
+
+### DELETE a TaskNote by autoid
+DELETE http://localhost:4004/odata/v4/isat/TaskAttachments(1000000)
+
+### CREATE a TaskNote
+POST http://localhost:4004/odata/v4/isat/Component_Stages
+Content-Type: application/json
+
+{
+  "stage_id":{"autoid":1000000},
+  "status":"Available" 
+}
+
+### READ all TaskNotes
+GET http://localhost:4004/odata/v4/isat/Component_Stages
+
+
+### READ specific TaskNote by name
+GET http://localhost:4004/odata/v4/isat/Component_Stages?$filter=autoid eq 1000000 and status eq 'Available'
+
+### UPDATE a TaskNote
+PUT  http://localhost:4004/odata/v4/isat/Component_Stages(1000000)
+Content-Type: application/json
+
+{
+    "autoid":1000000,
+  "stage_id":{"autoid":1000000},
+  "status":"InProgress" 
+}
+
+### DELETE a TaskNote by autoid
+DELETE http://localhost:4004/odata/v4/isat/Component_Stages(1000000)
+
+### CREATE a TaskNote
+POST http://localhost:4004/odata/v4/isat/Users_Roles
+Content-Type: application/json
+
+{
+  "user_id":{"autoid":1000000},
+  "role_id":{"autoid":1000000}
+   
+}
+
+### READ all TaskNotes
+GET http://localhost:4004/odata/v4/isat/Users_Roles
+
+
+### READ specific TaskNote by name
+GET http://localhost:4004/odata/v4/isat/Users_Roles?$filter=autoid eq 1000000
+
+### UPDATE a TaskNote
+PUT  http://localhost:4004/odata/v4/isat/Users_Roles(1000000)
+Content-Type: application/json
+
+{
+    "autoid":1000000,
+  "user_id":{"autoid":1000000},
+  "role_id":{"autoid":1000000}
+  
+}
+
+### DELETE a TaskNote by autoid
+DELETE http://localhost:4004/odata/v4/isat/Users_Roles(1000000)
+
+
+### CREATE a DDData
+
+POST http://localhost:4004/odata/v4/isat/DDData
+Content-Type: application/json
+
+{
+  "name": "DataName1",
+  "value": "SomeValue1",
+  "ddType_id": {"autoid":1000000}
+}
+
+### READ all DDData
+GET http://localhost:4004/odata/v4/isat/DDData
+
+### READ specific DDData by autoid
+GET http://localhost:4004/odata/v4/isat/DDData?autoid=1000000
+
+### READ specific DDData by name
+GET http://localhost:4004/odata/v4/isat/DDData?name=DataName1
+
+### UPDATE a DDData
+PUT http://localhost:4004/odata/v4/isat/DDData(1000000)
+Content-Type: application/json
+
+{
+  "autoid": 1000000,
+  "name": "UpdatedDataName",
+  "value": "UpdatedValue",
+  "ddType_id":{"autoid":1000000}
+}
+
+### DELETE a DDData by autoid
+DELETE http://localhost:4004/odata/v4/isat/DDData(1000000)
+
+
+
+

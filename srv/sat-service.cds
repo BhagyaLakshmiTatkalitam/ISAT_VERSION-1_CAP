@@ -12,8 +12,6 @@ service IsatService {
     entity Tasklist as projection on isat.Tasklist;
     entity Tasks as projection on isat.Tasks;
     entity TimeCapture as projection on isat.TimeCapture;
-    entity Component as projection on isat.Component;
-    entity ComponentType as projection on isat.ComponentType;
     entity Component_TaskList as projection on isat.Component_TaskList;
     entity Comments as projection on isat.Comments;
     entity Timelines as projection on isat.Timelines;
@@ -21,10 +19,12 @@ service IsatService {
     entity Component_Stages as projection on isat.Component_Stages;
     entity Stages as projection on isat.Stages;
     entity DDData as projection on isat.DDData;
+    entity DDType as projection on isat.DDType;
     entity InterfaceDetails as projection on isat.InterfaceDetails;
     entity TaskAttachments as projection on isat.TaskAttachments;
     entity TaskNotes as projection on isat.TaskNotes;
     entity Issues as projection on isat.Issues
+    
 }
  
  

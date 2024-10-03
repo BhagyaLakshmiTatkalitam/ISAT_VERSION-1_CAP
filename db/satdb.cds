@@ -1,19 +1,17 @@
 namespace com.cy.isat;
 
-using {managed} from '@sap/cds/common';
-
 
 entity Customers {
     key autoid      : Integer;
         custid      : String(10);
-        name        : String(20);                                //ok
-        location    : String(20);
+        name        : String(20);
+        location    : String(100);
         description : String(100);
 }
 
 entity Projects {
     key autoid      : Integer;
-        projid      : String(10);                              //ok
+        projid      : String(10);
         name        : String(20);
         description : String(100);
         status      : Boolean;
@@ -21,14 +19,14 @@ entity Projects {
 
 entity Customers_Projects {
     key autoid      : Integer;
-        customer_id : Association to Customers;                 //ok
+        customer_id : Association to Customers;
         proj_id     : Association to Projects;
 }
 
 entity Users {
     key autoid  : Integer;
         userid  : String(10);
-        name    : String(20);                                 //ok
+        name    : String(20);
         role    : String(10);
         active  : Boolean;
         emailid : String(20) @assert.valid.email;
@@ -40,53 +38,51 @@ entity Roles {
         roleid      : String(10);
         name        : String(20);
         description : String(100);
-        active      : Boolean;                               //column not mentioned in exel
+
 }
 
 entity Teams {
     key autoid      : Integer;
-        teamid      : String(10);                           //ok
+        teamid      : String(10);
         name        : String(20);
         description : String(100);
 }
 
 entity Teams_Users {
     key autoid  : Integer;
-        team_id : Association to Teams;                        //ok
+        team_id : Association to Teams;
         user_id : Association to Users;
         active  : Boolean;
 }
 
 entity Users_Roles {
     key autoid  : Integer;
-        user_id : Association to Users;                            //ok
+        user_id : Association to Users;
         role_id : Association to Roles;
 }
 
 entity Tasklist {
     key autoid      : Integer;
-        name        : String(20);                             //ok
-
+        name        : String(20);
         description : String(100);
 }
 
 
-//here we can use managed aspect
-entity Tasks : managed {
-    key autoid         : Integer;
-        task_name      : String(20);
-        duration       : String;
-        startdate      : Date;
-        enddate        : Date;
-        status         : String(10);
-        type           : String(10);
-        parent_task_id : Integer;                     //in this column reftaskid is in exel
-        assignedto     : String(20);
-        // created_by       : String(20);
-        //  updated_datetime : DateTime;
-        // created_datetime : DateTime;
-        //updated_by:String;
-        tasklist_id    : Association to Tasklist;
+entity Tasks {
+    key autoid           : Integer;
+        task_name        : String(20);
+        duration         : String;
+        startdate        : Date;
+        enddate          : Date;
+        status           : String(10);
+        type             : String(10);
+        parent_task_id   : Integer;
+        assignedto       : String(20);
+        created_by       : String(20);
+        updated_datetime : DateTime;
+        created_datetime : DateTime;
+        updated_by       : String;
+        tasklist_id      : Association to Tasklist;
 
 
 }
@@ -95,26 +91,26 @@ entity TimeCapture {
     key autoid     : Integer;
         start_time : Time;
         end_time   : Time;
-        task_id    : Association to Tasks;                        //ok
+        task_id    : Association to Tasks;
 }
 
-entity Component {
-    key autoid      : Integer;
-        compid      : String(10);
-        name        : String(20);                                 //entity not listed in exel
-        description : String(100);
-        type        : String(10);
-}
+// entity Component {
+//     key autoid      : Integer;
+//         compid      : String(10);
+//         name        : String(20);
+//         description : String(100);
+//         type        : String(10);
+// }
 
-entity ComponentType {
-    key autoid      : Integer;                                         //ok
-        name        : String(20);
-        description : String(1000);
-}
+// entity ComponentType {
+//     key autoid      : Integer;
+//         name        : String(20);
+//         description : String(1000);
+// }
 
 entity Component_TaskList {
     key autoid      : Integer;
-        comptype_id : Association to ComponentType;                      //edited from component_id
+        //ddType_id : Association to DDType;
         tasklist_id : Association to Tasklist;
         stage_id    : Association to Stages;
 }
@@ -123,7 +119,7 @@ entity Comments {
     key autoid           : Integer;
         comment          : String(1000);
         refid            : String(10);
-        type             : String(10);                             //Doubt(filtering)
+        type             : String(10);
         created_by       : String(20);
         created_datetime : DateTime;
 }
@@ -131,7 +127,7 @@ entity Comments {
 entity Timelines {
     key autoid         : Integer;
         start_datetime : Time;
-        end_datetime   : Time;                                            //ok
+        end_datetime   : Time;
         refid          : Integer;
         type           : String(10);
 }
@@ -139,42 +135,47 @@ entity Timelines {
 
 entity Phases {
     key autoid     : Integer;
-        phase_name : String(20);                                     //phase_name  type is time in exel
+        phase_name : String(20);
 }
 
 
 entity Component_Stages {
     key autoid       : Integer;
-        component_id : Association to ComponentType;                           //comptype_id mentioned in exel
+        //ddType_id : Association to DDType;
         //stagename : String(20);
-        // stage_id     : Association to Stages;                         //column mentioned in exel
+        stage_id     : Association to Stages;
         status       : String(10);
 }
 
 
 entity Stages {
     key autoid      : Integer;
-        name        : String(20);                               //ok
+        name        : String(20);
         description : String(100);
 
 }
 
 
 entity DDData {
-    key autoid   : Integer;
-        name     : String(20);
-        type     : String(10);                           //this column not mentioned in exel
-        comptype : String(10);
+    key autoid    : Integer;
+        name      : String(20);
+        value     : String(30);
+        ddType_id : Association  to DDType;
+}
+
+entity DDType {
+    key autoid      : Integer;
+        name        : String(20);
+        description : String(100);
 }
 
 
 entity InterfaceDetails {
     key autoid         : Integer;
         name           : String(20);
-        decsription    : String(20);
-        component_id   : Association to Component;           //column not mentioned in exel
+        description    : String(20);
         module         : String(20);
-        package        : Integer;
+        package        : String(20);
         senderssystem  : String(20);
         receiversystem : String(20);
         process        : String(20);
@@ -190,7 +191,7 @@ entity InterfaceDetails {
 
 entity TaskAttachments {
     key autoid        : Integer;
-        task_id       : Association to Tasks;           //ok
+        task_id       : Association to Tasks;
         attachmenturl : String(100);
         name          : String(20);
         type          : String(10);
@@ -199,18 +200,18 @@ entity TaskAttachments {
 entity TaskNotes {
     key autoid  : Integer;
         task_id : Association to Tasks;
-        notes   : String(1000);                           //ok
+        notes   : String(1000);
         name    : String(20);
 
 }
 
 entity Issues {
     key autoid       : Integer;
-        issueDesc    : String(10);
+        issueDesc    : String(100);
         detailedDesc : String(100);
         type         : String(20);
         status       : String(10);
-        createdBy    : String(10);                  //newly added entity
+        createdBy    : String(10);
         updatedBy    : String(100);
         createdTime  : String(20);
         updatedTime  : String(10)
