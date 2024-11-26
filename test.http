@@ -23,13 +23,14 @@ GET http://localhost:4004/odata/v4/isat/Customers?$search=1000000
 GET http://localhost:4004/odata/v4/isat/Customers
 ###
 PUT http://localhost:4004/odata/v4/isat/Customers(1000000)
+
 Content-Type: application/json
  
 {
     "autoid":1000000,
     "custid":"CUST_003",
     "name":"Manasa James",
-    "location":"Eurpe",
+    "location":"Europe",
     "description":"SAP Partner"
 }
  
@@ -52,7 +53,7 @@ GET http://localhost:4004/odata/v4/isat/Projects
 Content-Type: application/json 
 
 ### 
-GET http://localhost:4004/odata/v4/isat/Projects?search=false
+GET http://localhost:4004/odata/v4/isat/Projects?search="ISAT-6"
 Content-Type: application/json 
 
 
@@ -61,19 +62,19 @@ POST http://localhost:4004/odata/v4/isat/Projects
 Content-Type: application/json
  
 {
-    "projid":"PROJECT-10",
-    "name":"ISAT-4",
+    "projid":"PROJECT-12",
+    "name":"ISAT-6",
     "description":"creating project",
-    "status":true
+    "status":false
 }
  
  
 ### 
-PUT http://localhost:4004/odata/v4/isat/Projects(1000003)
+PUT http://localhost:4004/odata/v4/isat/Projects(1000001)
 Content-Type: application/json
  
 {    
-    "autoid": 1000003,
+    "autoid": 1000001,
     "projid":"PROJECT-2",
     "name":"ISAT-2",
     "description":"creating project",
@@ -226,6 +227,7 @@ Content-Type: application/json
 {
         "teamid"      : "Team_1",
         "name"        : "dev",
+        
         "description" : "core application"
 }
 

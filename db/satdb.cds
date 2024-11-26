@@ -19,6 +19,7 @@ entity Projects {
 
 entity Customers_Projects {
     key autoid      : Integer;
+    
         customer_id : Association to Customers;
         proj_id     : Association to Projects;
 }
